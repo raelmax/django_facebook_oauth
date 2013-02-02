@@ -3,6 +3,7 @@ import cgi, urllib, json
 from django.conf import settings
 from django.contrib.auth.models import User, AnonymousUser
 from django.db import IntegrityError
+from django.core.urlresolvers import reverse
 
 from facebook.models import FacebookProfile
 
@@ -12,7 +13,7 @@ class FacebookBackend:
         args = {
             'client_id': settings.FACEBOOK_APP_ID,
             'client_secret': settings.FACEBOOK_APP_SECRET,
-            'redirect_uri': request.build_absolute_uri('/facebook/authentication_callback'),
+            'redirect_uri': request.build_absolute_uri(reverse('auth_callback')),
             'code': token,
         }
 
